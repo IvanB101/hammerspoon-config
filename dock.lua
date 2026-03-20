@@ -4,7 +4,6 @@ local app = require("hs.application")
 local aux_ui_elem = require("hs.axuielement")
 
 M.open_item = function(n)
-    print("navigating dock")
 	local dock = app.get("Dock")
 	if not dock then
 		return

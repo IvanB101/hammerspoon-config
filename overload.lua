@@ -78,24 +78,27 @@ M.event_handler = function(event)
 			overload.used = false
 			return true
 		end
+        if not overload.active then
+            return false
+        end
 		overload.active = false
 		return true, not overload.used and M.tagged_key_press(key_code) or nil
 	end
 
 	local changed = false
-	for _, overload in ipairs(M.ordered_overloads) do
-		if not overload.active then
+	for _, layer in ipairs(M.ordered_overloads) do
+		if not layer.active then
 			goto continue
 		end
 
-		local map = overload.layer[key]
-		if not map and not overload.default then
+		local map = layer.layer[key]
+		if not map and not layer.default then
 			goto continue
 		end
-		overload.used = true
+		layer.used = true
 		changed = true
 		if not map then
-			M.add_modifier(event, overload.default)
+			M.add_modifier(event, layer.default)
 			goto continue
 		end
 
